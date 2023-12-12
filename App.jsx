@@ -1,61 +1,22 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Text, TextInput, Button} from 'react-native';
+import {TamaguiProvider} from 'tamagui';
+import tamaguiConfig from './tamagui.config';
+
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import auth from '@react-native-firebase/auth';
 
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Register from './src/screen/Register';
+import Login from './src/screen/Login';
+import Initial from './src/screen/Initial';
+import Home from './src/screen/Home';
 
 const Stack = createNativeStackNavigator();
 
-const App = () => {
+const Application = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-
-  const signIn = () => {
-    auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log('Login success!');
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
-
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
-
-        console.error(error);
-      });
-  };
-
-  const signUp = () => {
-    auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log('User account created & signed in!');
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
-
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
-
-        console.error(error);
-      });
-  };
-
-  const signOut = () => {
-    auth()
-      .signOut()
-      .then(() => console.log('User signed out!'));
-  };
 
   function onAuthStateChanged(user) {
     setUser(user);
@@ -69,24 +30,30 @@ const App = () => {
 
   if (initializing) return null;
 
-  return user ? (
-    <SafeAreaView>
-      <Text>{user.email}</Text>
-      <Button onPress={signOut} title="Sign-Out" color="black" />
-    </SafeAreaView>
-  ) : (
-    <SafeAreaView>
-      <TextInput onChangeText={setEmail} value={email} placeholder="email" />
-      <TextInput
-        onChangeText={setPassword}
-        value={password}
-        password
-        placeholder="şifre"
-        keyboardType="numeric"
-      />
-      <Button onPress={signIn} title="Sign-In" />
-      <Button onPress={signUp} title="Sign-Up" color="green" />
-    </SafeAreaView>
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        {user ? (
+          <>
+            <Stack.Screen name="Home" component={Home} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Initial" component={Initial} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Register" component={Register} />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+const App = () => {
+  return (
+    <TamaguiProvider config={tamaguiConfig}>
+      <Application />
+    </TamaguiProvider>
   );
 };
 
