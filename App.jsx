@@ -7,10 +7,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import auth from '@react-native-firebase/auth';
 
-import Register from './src/screen/Register';
-import Login from './src/screen/Login';
-import Initial from './src/screen/Initial';
-import Home from './src/screen/Home';
+import Register from './src/screens/Register';
+import Login from './src/screens/Login';
+import Initial from './src/screens/Initial';
+import TabNavigator from './src/components/TabNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +35,7 @@ const Application = () => {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {user ? (
           <>
-            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Tab" component={TabNavigator} />
           </>
         ) : (
           <>
