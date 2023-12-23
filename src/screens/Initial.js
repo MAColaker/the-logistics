@@ -10,7 +10,7 @@ export default Initial = () => {
 
   return (
     <YStack fullscreen backgroundColor={'#176B87'} space>
-      <YStack alignItems="center" justifyContent="center" flex={0.3} space>
+      <YStack alignItems="center" justifyContent="flex-end" flex={0.3} space>
         <H1 color={'white'}>HOŞ GELDİNİZ</H1>
         <H6 color={'white'}>
           İşlerinizi daha hızlı bir şekilde almak ister misiz?

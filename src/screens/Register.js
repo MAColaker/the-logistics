@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 
 export default Login = () => {
-  const [name, setName] = useState();
+  const [displayName, setDisplayName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -18,6 +18,7 @@ export default Login = () => {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         console.log('User account created & signed in!');
+        auth().currentUser.updateProfile({displayName});
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -53,7 +54,7 @@ export default Login = () => {
         </YStack>
         <YStack>
           <Text>İsim</Text>
-          <Input onChangeText={setName} />
+          <Input onChangeText={setDisplayName} />
         </YStack>
         <YStack>
           <Text>Email</Text>

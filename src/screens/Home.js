@@ -14,7 +14,7 @@ export default Home = () => {
   return (
     <YStack>
       <SafeAreaView>
-        <Text>Hoş geldiniz</Text>
+        <Text>Hoş geldiniz {auth().currentUser.displayName}</Text>
       </SafeAreaView>
       <Theme name={'dark_blue'}>
         <Button theme="active" onPress={signOut}>
