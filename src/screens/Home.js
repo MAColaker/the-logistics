@@ -1,10 +1,13 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
 import {YStack, Text, Button, Theme} from 'tamagui';
+
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import auth from '@react-native-firebase/auth';
 
 export default Home = () => {
+  const {left, top, right} = useSafeAreaInsets();
+
   const signOut = () => {
     auth()
       .signOut()
@@ -12,10 +15,8 @@ export default Home = () => {
   };
 
   return (
-    <YStack>
-      <SafeAreaView>
-        <Text>Hoş geldiniz {auth().currentUser.displayName}</Text>
-      </SafeAreaView>
+    <YStack top={top} left={left} right={right} space>
+      <Text>Hoş geldiniz {auth().currentUser.displayName}</Text>
       <Theme name={'dark_blue'}>
         <Button theme="active" onPress={signOut}>
           Sign-Out

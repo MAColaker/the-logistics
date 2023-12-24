@@ -58,11 +58,11 @@ export default Login = () => {
         </YStack>
         <YStack>
           <Text>Email</Text>
-          <Input onChangeText={setEmail} />
+          <Input keyboardType="email-address" onChangeText={setEmail} />
         </YStack>
         <YStack>
           <Text>Şifre</Text>
-          <Input onChangeText={setPassword} />
+          <Input secureTextEntry onChangeText={setPassword} />
         </YStack>
         <YStack alignItems="center" space>
           <Theme name={'dark_blue'}>
