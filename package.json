@@ -19,6 +19,7 @@
     "@tamagui/config": "^1.79.18",
     "@tamagui/core": "^1.79.18",
     "@tamagui/toast": "^1.79.18",
+    "axios": "^1.6.3",
     "burnt": "^0.12.1",
     "lottie-react-native": "^6.4.1",
     "react": "18.2.0",
