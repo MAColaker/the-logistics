@@ -36,30 +36,36 @@ export default MyJobs = () => {
     return () => subscriber();
   }, []);
 
-  if (loading) {
-    return <Spinner />;
-  }
-
   return (
     <YStack backgroundColor={'$gray7'} fullscreen>
       <YStack top={top} left={left} right={right} bottom={0} space>
         <H1 padding={25}>Benim İşlerim</H1>
         <YStack>
-          <FlatList
-            contentContainerStyle={{paddingBottom: 250}}
-            data={jobs}
-            key={item => item.id}
-            renderItem={({item}) => (
-              <Card marginBottom={15} marginHorizontal={20} elevate>
-                <Card.Header>
-                  <H2>{item.fiyat} ₺</H2>
-                  <Text>Adres: {item.adres}</Text>
-                  <Text>Konteyner No: {item.konteynerNo}</Text>
-                  <Text>Liman: {item.liman}</Text>
-                </Card.Header>
-              </Card>
-            )}
-          />
+          {loading ? (
+            <Spinner
+              top={top}
+              left={left}
+              right={right}
+              bottom={0}
+              color={'$blue10'}
+            />
+          ) : (
+            <FlatList
+              contentContainerStyle={{paddingBottom: 250}}
+              data={jobs}
+              key={item => item.id}
+              renderItem={({item}) => (
+                <Card marginBottom={15} marginHorizontal={20} elevate>
+                  <Card.Header>
+                    <H2>{item.fiyat} ₺</H2>
+                    <Text>Adres: {item.adres}</Text>
+                    <Text>Konteyner No: {item.konteynerNo}</Text>
+                    <Text>Liman: {item.liman}</Text>
+                  </Card.Header>
+                </Card>
+              )}
+            />
+          )}
         </YStack>
       </YStack>
     </YStack>
